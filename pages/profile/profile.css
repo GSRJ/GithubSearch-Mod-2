@@ -1,0 +1,65 @@
+/* Desenvolva sua estilização aqui...*/
+body {
+  background-color: var(--color-grey-2);
+  color: var(--color-grey-7);
+  width: 900px;
+  margin: 0 auto;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.header {
+  margin-top: 2%;
+  margin-left: 75px;
+  margin-right: 75px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header > span > img {
+  height: 5rem;
+  border: 2px solid var(--color-brand-2);
+  border-radius: 9.375rem;
+}
+
+.infoBox {
+  min-width: 60%;
+}
+
+#repos {
+  margin-top: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  list-style: none;
+}
+
+#repos > li {
+  width: 40%;
+  height: 16rem;
+  background: var(--color-grey-1);
+  border: 2px solid var(--color-grey-7);
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#repos > li > h2 {
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+#repos > li > p {
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 150%;
+  color: var(--color-grey-6);
+}
