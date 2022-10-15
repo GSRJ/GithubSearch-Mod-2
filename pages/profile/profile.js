@@ -36,12 +36,22 @@ async function getData() {
     `
     );
 
+    let antepenultSearched = localStorage.getItem("B");
+
+    localStorage.setItem("C", antepenultSearched);
+
+    let penultSearched = localStorage.getItem("A");
+
+    localStorage.setItem("B", penultSearched);
+
+    let lastSearched = JSON.stringify([dataJson.avatar_url, userSearched]);
+
+    localStorage.setItem("A", lastSearched);
+
     async function getRepo() {
       const data = await userSearchedRepos;
       const dataJson = await data.json();
       const repositoriesBox = document.querySelector("#repos");
-
-      console.log(dataJson);
 
       dataJson.forEach((element) => {
         repositoriesBox.insertAdjacentHTML(
@@ -64,4 +74,6 @@ async function getData() {
   }
 }
 
-getData();
+const body = document.body;
+
+body.addEventListener("load", getData());
