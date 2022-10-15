@@ -27,7 +27,7 @@ main {
 }
 
 .infoBox {
-  min-width: 60%;
+  width: 50%;
 }
 
 #repos {
