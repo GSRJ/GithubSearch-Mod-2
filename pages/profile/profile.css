@@ -63,3 +63,11 @@ main {
   line-height: 150%;
   color: var(--color-grey-6);
 }
+
+#notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}

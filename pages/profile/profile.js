@@ -1,5 +1,5 @@
 /* Desenvolva sua lógica aqui...*/
-let userSearched = "GSRJ";
+let userSearched = "gsrrr";
 const userSearchedLink = fetch(`https://api.github.com/users/${userSearched}`);
 const userSearchedRepos = fetch(
   `https://api.github.com/users/${userSearched}/repos`
@@ -10,9 +10,10 @@ async function getData() {
   const dataJson = await data.json();
 
   const header = document.querySelector(".header");
-  header.insertAdjacentHTML(
-    "beforeend",
-    `<span class="img">
+  try {
+    header.insertAdjacentHTML(
+      "beforeend",
+      `<span class="img">
     <img src="${dataJson.avatar_url}" alt=" foto de ${dataJson.name}"/>
     </span>
     <span class="infoBox">
@@ -22,7 +23,26 @@ async function getData() {
     <button class="pinkButton"><a href="mailto:${dataJson.email}">Email</a></button>
     <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
     `
-  );
+    );
+  } catch {
+    alert("não localizado");
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<h1> Usuário não encontrado! </h1>
+        `
+    );
+  } finally {
+    header.innerHTML = "";
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<div id="notFound"> 
+      <h1> Usuário não encontrado!</h1>
+        <p>${dataJson.message}</p>
+        <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
+        </div>
+        `
+    );
+  }
 }
 getData();
 async function getRepo() {
