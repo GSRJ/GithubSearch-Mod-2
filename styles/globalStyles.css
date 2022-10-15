@@ -69,8 +69,36 @@
   border: none;
   color: var(--color-grey-6);
 }
+.pinkButtonOff > a {
+  text-decoration: none;
+  color: var(--color-grey-6);
+}
 
-.pinkButtonOff:active {
+.pinkButtonOn {
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
   background-color: var(--color-brand-2);
+  border-radius: 0.25rem;
+  padding: 0.6rem;
+  border: none;
   color: var(--color-grey-7);
+}
+
+.pinkButtonOn > a {
+  text-decoration: none;
+  color: var(--color-grey-6);
+}
+
+.loading {
+  animation: spinner 1s infinite linear;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

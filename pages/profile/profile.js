@@ -1,5 +1,5 @@
-/* Desenvolva sua lógica aqui...*/
-let userSearched = "gsrrr";
+let userSearched = localStorage.getItem("buscado");
+
 const userSearchedLink = fetch(`https://api.github.com/users/${userSearched}`);
 const userSearchedRepos = fetch(
   `https://api.github.com/users/${userSearched}/repos`
@@ -8,9 +8,20 @@ const userSearchedRepos = fetch(
 async function getData() {
   const data = await userSearchedLink;
   const dataJson = await data.json();
-
   const header = document.querySelector(".header");
-  try {
+
+  if (typeof dataJson.name === "undefined") {
+    header.innerHTML = "";
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<div id="notFound">
+      <h1> Usuário não encontrado!</h1>
+        <p>${dataJson.message}</p>
+        <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
+        </div>
+      `
+    );
+  } else {
     header.insertAdjacentHTML(
       "beforeend",
       `<span class="img">
@@ -24,38 +35,18 @@ async function getData() {
     <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
     `
     );
-  } catch {
-    alert("não localizado");
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      `<h1> Usuário não encontrado! </h1>
-        `
-    );
-  } finally {
-    header.innerHTML = "";
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      `<div id="notFound"> 
-      <h1> Usuário não encontrado!</h1>
-        <p>${dataJson.message}</p>
-        <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
-        </div>
-        `
-    );
-  }
-}
-getData();
-async function getRepo() {
-  const data = await userSearchedRepos;
-  const dataJson = await data.json();
-  const repositoriesBox = document.querySelector("#repos");
 
-  console.log(dataJson);
+    async function getRepo() {
+      const data = await userSearchedRepos;
+      const dataJson = await data.json();
+      const repositoriesBox = document.querySelector("#repos");
 
-  dataJson.forEach((element) => {
-    repositoriesBox.insertAdjacentHTML(
-      "beforeend",
-      `<li>
+      console.log(dataJson);
+
+      dataJson.forEach((element) => {
+        repositoriesBox.insertAdjacentHTML(
+          "beforeend",
+          `<li>
         <h2>${element.name}</h2>
         <p>
           ${element.description}
@@ -66,8 +57,11 @@ async function getRepo() {
         </span>
       </li>
         `
-    );
-  });
+        );
+      });
+    }
+    getRepo();
+  }
 }
 
-getRepo();
+getData();

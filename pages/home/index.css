@@ -35,10 +35,43 @@ main {
   font-size: 1.25rem;
 }
 
-/*ACESSANDO A UL */
+.leftSideContent > ul {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 200%;
+}
 .leftSideContent > ul > h3 {
   font-weight: 500;
   font-size: 1rem;
+}
+.searchHistory {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0.2rem;
+}
+.searchHistory > img {
+  height: 3.5rem;
+  border: 2px solid var(--color-brand-2);
+  border-radius: 50%;
+}
+
+.searchHistory > button {
+  display: none;
+}
+
+.searchHistory:hover > button {
+  display: flex;
+  position: absolute;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.1rem;
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.3rem;
+  top: 520px;
+  transform: translateX(-1rem);
 }
 
 #rightSide {
