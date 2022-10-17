@@ -1,32 +1,29 @@
 let seeProfileButton = document.querySelector(".searchButton");
 let search = document.querySelector("#search");
 
+const clickButton = (e) => {
+  e.preventDefault();
+  let profile = search.value;
+  localStorage.setItem("buscado", profile);
+  window.location.replace("./pages/profile/profile.html");
+
+  e.innerHTML = "";
+  const img = document.createElement("img");
+  img.src = "./assets/img/spinner.svg";
+  img.alt = "loading image";
+  img.classList.add("loading");
+  e.appendChild(img);
+};
+
 search.addEventListener("keyup", () => {
-  seeProfileButton.classList.remove("pinkButtonOff");
   seeProfileButton.classList.add("pinkButtonOn");
-  activeButton();
+  seeProfileButton.addEventListener("click", clickButton);
 
   if (search.value === "") {
     seeProfileButton.classList.remove("pinkButtonOn");
-    seeProfileButton.classList.add("pinkButtonOff");
+    seeProfileButton.removeEventListener("click", clickButton);
   }
 });
-
-function activeButton() {
-  seeProfileButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    let profile = search.value;
-    localStorage.setItem("buscado", profile);
-    window.location.replace("./pages/profile/profile.html");
-
-    seeProfileButton.innerHTML = "";
-    const img = document.createElement("img");
-    img.src = "./assets/img/spinner.svg";
-    img.alt = "loading image";
-    img.classList.add("loading");
-    seeProfileButton.appendChild(img);
-  });
-}
 
 onload = function () {
   const lastSearched = document.querySelector(".lastSearched");
