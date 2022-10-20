@@ -1,27 +1,12 @@
 let userSearched = localStorage.getItem("buscado");
 
-const userSearchedLink = fetch(`https://api.github.com/users/${userSearched}`);
-const userSearchedRepos = fetch(
-  `https://api.github.com/users/${userSearched}/repos`
-);
-
 async function getData() {
-  const data = await userSearchedLink;
-  const dataJson = await data.json();
   const header = document.querySelector(".header");
 
-  if (typeof dataJson.name === "undefined") {
-    header.innerHTML = "";
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      `<div id="notFound">
-      <h1> Usuário não encontrado!</h1>
-        <p>${dataJson.message}</p>
-        <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
-        </div>
-      `
-    );
-  } else {
+  try {
+    const data = await fetch(`https://api.github.com/users/${userSearched}`);
+    const dataJson = await data.json();
+
     header.insertAdjacentHTML(
       "beforeend",
       `<span class="img">
@@ -35,6 +20,18 @@ async function getData() {
     <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
     `
     );
+    if (typeof dataJson.name === "undefined") {
+      header.innerHTML = "";
+      document.body.insertAdjacentHTML(
+        "beforeend",
+        `<div id="notFound">
+      <h1> Usuário não encontrado!</h1>
+        <p>${dataJson.message}</p>
+        <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
+        </div>
+      `
+      );
+    }
 
     let antepenultSearched = localStorage.getItem("B");
 
@@ -49,7 +46,9 @@ async function getData() {
     localStorage.setItem("A", lastSearched);
 
     async function getRepo() {
-      const data = await userSearchedRepos;
+      const data = await fetch(
+        `https://api.github.com/users/${userSearched}/repos`
+      );
       const dataJson = await data.json();
       const repositoriesBox = document.querySelector("#repos");
 
@@ -71,6 +70,15 @@ async function getData() {
       });
     }
     getRepo();
+  } catch {
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `<div id="notFound">
+    <h1> Ocorreu um erro</h1>
+      <button class="darkButton"><a href="../../index.html">Trocar de usuário</a></button>
+      </div>
+    `
+    );
   }
 }
 
